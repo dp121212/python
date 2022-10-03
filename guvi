@@ -1,0 +1,167 @@
+import tkinter
+import psycopg2
+import psycopg2.extras
+import pyodbc
+top=tkinter.Tk()
+top.geometry("700x700")
+top.title("Project1")
+user_name=tkinter.Label(top,text="for admins only")
+user_name.pack()
+
+def radio_used():
+  disp()
+  
+def radio_delete():
+  query1="delete from students where name= '"+entry1.get() +"';"
+  curs=conn.cursor()
+  curs.execute(query1)
+  conn.commit()
+  
+def disabled1():
+  entry2.config(state="disabled")
+  entry3.config(state="disabled")
+  entry4.config(state="disabled")
+  entry5.config(state="disabled")
+  entry6.config(state="disabled")
+  radio.delete()
+def disp():
+  print(radio.get())
+  query="select * from student where name = '"+entry1.get() +" ';"
+  curs=conn.cursor()
+  curs.execute(query)
+  result=curs.fetchall()
+  for i in result:
+    print(i[2])
+    entry2.insert(0,i[2])
+    entry3.insert(0,i[3])
+    entry4.insert(0,i[4])
+    entry5.insert(0,i[5])
+    entry6.insert(0,i[6])
+  conn.commit()
+
+def radio_insert():
+  insert()
+def radio_update():
+  update()
+def insert():
+  curs=conn.cursor()
+  psql="""INSERT INTO student(name,aadhar,parentname,phno,class,section) values(%s,%s,%s,%s,%s,%s) """
+  record=(entry1.get(),entry2.get(),entry3.get(),entry4.get(),entry5.get(),entry6.get())
+  curs.execute(psql,record)
+  conn.commit()
+def update():
+  sql=""" Update student set aadhar=%s,parentname=%s,phno=%s,class=%s,section=%s where name=%s """
+  record1=(entry2.get(),entry3.get(),entry4.get(),entry5.get(),entry6.get(),entry1.get())
+  curs.execute(sql,record1)
+  conn.commit
+  
+conn=psycopg2.connect(host=localhost,database="postgres",user="postgres",password="root",port="5433",sslmode="prefer")
+user_name1=tkinter.Label(top,text="Name")
+user_name1.pack()
+
+entry1=tkinter.Entry()
+entry1.pack()
+
+radio=tkinter.IntVar()
+radio1=tkinter.Radiobutton(text="Display",value='1',variable=radio,command=radio_used)
+radio1.pack()
+
+radio4=tkinter.Radiobutton(text="Delete",value='4',variable=radio,command=disabled1)
+radio4.pack()
+
+user_name2=tkinter.Label(top,text="Aadhar)
+user_name2.pack()
+entry2=tkinter.Entry()
+entry2.pack()
+
+user_name3=tkinter.Label(top,text="ParentName")
+user_name3.pack()
+entry3=tkinter.Entry()
+entry3.pack()
+
+user_name4=tkinter.Label(top,text="Phone")
+user_name4.pack()
+entry4=tkinter.Entry()
+entry4.pack()
+
+user_name5=tkinter.Label(top,text="Class")
+user_name5.pack()
+entry5=tkinter.Entry()
+entry5.pack()
+
+user_name6=tkinter.Label(top,text="Section")
+user_name6.pack()
+entry6=tkinter.Entry()
+entry6.pack()
+
+radio2=tkinter.Radiobutton(text="Insert",value='2',variable=radio,command=radio_insert)
+radio2.pack()
+radio3= tkinter.Radiobutton(text="updatee",value='3,variable=radio,command=radio_update)
+radio3.pack()
+
+module1=tkinter.Label(text="--------------------------------------------------")
+module1.pack()
+module2=tkinter.Label(text="FOR TEACHERS ONLY")
+module2.pack()
+
+def radioinsert2():
+  insert2()
+def insert2():
+  curs=conn.cursor()
+  psql1="""INSERT INTO MARKS(id,exam_name,math,sci,sst,lang1) values(%s,%s,%s,%s,%s,%s) """
+  record=(module2entry2.get(),module2entry3.get(),module2entry4.get(),module2entry5.get(),module2entry6.get())
+  curs.execute(psql1,record)
+  conn.commit()
+def dispfail():
+  query11="select id from marks where math <33 or sci <33 or sst <33 or lang1 <33"
+  curs=conn.cursor()
+  curs.execute(query11)
+  result=curs.fetchall()
+  for i in result:
+    print(i)
+def listfailstudents():
+  dispfail()
+  conn.commit()
+  
+radio2module2=tkinter.Radiobutton(text="Insert",value='5',variable=radio,command=radioinsert2)
+radio2module2.pack()
+radio3module2= tkinter.Radiobutton(text="VIew",value='6',variable=radio,command=listfailstudents)
+radio3module2.pack()
+
+module2_name2=tkinter.Label(top,text="ID")
+module2_name2.pack()
+module2entry2=tkinter.Entry()
+module2entry2.pack()
+
+module2_name3=tkinter.Label(top,text="MathMark")
+module2_name3.pack()
+module2entry3=tkinter.Entry()
+module2entry3.pack()
+
+module2_name4=tkinter.Label(top,text="SciMark")
+module2_name4.pack()
+module2entry4=tkinter.Entry()
+module2entry4.pack()
+module2_name5=tkinter.Label(top,text="Sstmark")
+module2_name5.pack()
+module2entry5=tkinter.Entry()
+module2entry5.pack()
+module2_name6=tkinter.Label(top,text="langmark")
+module2_name6.pack()
+module2entry6=tkinter.Entry()
+module2entry6.pack()
+module2_name7=tkinter.Label(top,text="ExamName")
+module2_name7.pack()
+module2entry7=tkinter.Entry()
+module2entry7.pack()
+top.mainloop()
+
+
+  
+    
+
+
+
+
+
+
