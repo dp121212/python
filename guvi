@@ -5,7 +5,7 @@ import pyodbc
 top=tkinter.Tk()
 top.geometry("700x700")
 top.title("Project1")
-user_name=tkinter.Label(top,text="for admins only")
+user_name=tkinter.Label(top,text="For Admins Only")
 user_name.pack()
 
 def radio_used():
