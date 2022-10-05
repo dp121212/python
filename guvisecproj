@@ -1,0 +1,139 @@
+from tkinker import *
+from tkinker
+import psycopg2
+import psycopg2.extras
+import pyodbc
+top=tkinker.Tk()
+ws=Tk()
+ws.title('GUVI PROJECT')
+ws.geometry("700x700")
+conn=psycopg2.connect(host=localhost,database="postgres",user="postgres",password="root",port="5433",sslmode="prefer")
+
+def viewmark():
+  query="select * from marks where id= '"+entry22.get()+"';"
+  curs=conn.cursor()
+  curs.execute(query)
+  result=curs.fetchall()
+  for i in result:
+    entry33.insert(0,i[1])
+    entry44.insert(0,i[2])
+    entry55.insert(0,i[3])
+    entry66.insert(0,i[4])
+    entry77.insert(0,i[5])
+def updatefee():
+  curs=conn.cursor()
+  update_query="""Update studfee set fees=%s where name=%s """
+  record1=(entry7.get(),a.get())
+  curs.execute(update_query,record1)
+  conn.commit()
+def close():
+  ws.destroy()
+def pressed():
+  a.insert(0,entry1.get())
+  top.destroy()
+  disp()
+def disp():
+  query="select * from studfee where name='"+a.get()+"';"
+  curs=conn.cursor()
+  curs.execute(query)
+  result=curs.fetchall()
+  for i in result:
+   
+    entry2.insert(0,i[2])
+    entry3.insert(0,i[3])
+    entry4.insert(0,i[4])
+    entry5.insert(0,i[5])
+    entry6.insert(0,i[6])
+    entry7.insert(0,i[7])
+  conn.commit()
+user_name1=tkinter.Label()top,text="Enter the Student name")
+user_name1.pack()
+
+entry1=tkinter.Entry()
+entry1.pack()
+radio=tkinter.IntVar()
+radio1=tkinter.Radiobutton(text="View Details",value='1',varioable=radio,command=pressed)
+radio1.pack()
+frame1=Frame(ws,padx=5pady=5)
+frame1.grid(row=0,column=1)
+Label(frame1,text='Name',padx=5,pady=5).pack()
+Label(frame1,text='Aadhar',padx=5,pady=5).pack()
+Label(frame1,text='phno',padx=5,pady=5).pack()
+Label(frame1,text='class',padx=5,pady=5).pack()
+Label(frame1,text='section',padx=5,pady=5).pack()
+Label(frame1,text='fee',padx=5,pady=5).pack()
+
+frame5=Frame(ws,padx=5,pady=5)
+frame5.grid(row=0,column=2)
+
+a=tkinter.Entry(frame5)
+a.pack(padx=5,pady=5)
+
+entry2=Entry(frame5)
+entry2.pack(padx=5,pady=5)
+entry3=Entry(frame5)
+entry3.pack(padx=5,pady=5)
+entry4=Entry(frame5)
+entry4.pack(padx=5,pady=5)
+entry5=Entry(frame5)
+entry5.pack(padx=5,pady=5)
+entry6=Entry(frame5)
+entry6.pack(padx=5,pady=5)
+entry7=Entry(frame5)
+entry7.pack(padx=5,pady=5)
+
+Button(ws,text='UPDATE FEE',padx=10,command=updatefee).grid(row=1,columnspan=5,pady=5)
+
+frame2=Frame(ws,padx=5,pady=5)
+frame2.grid(row=3,column=3)
+Label(frame2,text='FOR TEACHERS ONLY',padx=5,pady=5).pack()
+Label(frame2,text='ID',padx=5,pady=5).pack()
+Label(frame2,text='EXAMNAME',padx=5,pady=5).pack()
+Label(frame2,text='MATH',padx=5,pady=5).pack()
+Label(frame2,text='SCI',padx=5,pady=5).pack()
+Label(frame2,text='SST',padx=5,pady=5).pack()
+Label(frame2,text='LANG',padx=5,pady=5).pack()
+
+frame4=Frame(ws,padx=5,pady=5)
+frame4.grid(row=3,column=4)
+Label(frame4,text='(TO VIEW MARKS)',padx=5,pady=5).pack()
+entry22=Entry(frame4)
+entry22.pack(padx=5,pady=5)
+entry33=Entry(frame4)
+entry33.pack(padx=5,pady=5)
+entry44=Entry(frame4)
+entry44.pack(padx=5,pady=5)
+entry55=Entry(frame4)
+entry55.pack(padx=5,pady=5)
+entry66=Entry(frame4)
+entry66.pack(padx=5,pady=5)
+entry77=Entry(frame4)
+entry77.pack(padx=5,pady=5)
+Button(ws,text='VIEW MARKS',padx=10,command=viewmark).grid(row=6,columnspan=5,pady=5)
+Button(ws,text='EXIT',padx=10,command=close).grid(row=7,columnspan=5,pady=5)
+ws.mainloop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
